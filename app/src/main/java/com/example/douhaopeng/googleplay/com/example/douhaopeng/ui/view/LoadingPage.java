@@ -17,7 +17,8 @@ import com.example.douhaopeng.googleplay.com.example.douhaopeng.utils.UIUtils;
  * Created by Administrator on 2017\10\6 0006.
  */
 
-public class LoadingPage extends FrameLayout {
+public abstract class LoadingPage extends FrameLayout {
+    private View mSuccessPage;
     private View mEmptyPage;
     private View mErrorPage;
     private View mLoadingPage;
@@ -69,5 +70,58 @@ public class LoadingPage extends FrameLayout {
         mLoadingPage.setVisibility((mCurrentState == STATE_LOAD_UNDO||mCurrentState== STATE_LOAD_LOADING)?View.VISIBLE:View.GONE);
         mErrorPage.setVisibility((mCurrentState ==STATE_LOAD_ERROR  )?View.VISIBLE:View.GONE);
         mEmptyPage.setVisibility((mCurrentState == STATE_LOAD_EMPTY)?View.VISIBLE:View.GONE);
+
+        if(mSuccessPage == null && mCurrentState == STATE_LOAD_SUCCESS){
+             mSuccessPage = onCreateSuccessView();
+            if(mSuccessPage != null){
+                addView(mSuccessPage);
+            }
+        }
+        if(mSuccessPage!=null){
+            mSuccessPage.setVisibility((mCurrentState == STATE_LOAD_SUCCESS)?View.VISIBLE:View.GONE);
+        }
+    }
+    //开始异步加载数据
+    public void loadData(){
+        if(mCurrentState!=STATE_LOAD_LOADING){
+        mCurrentState = STATE_LOAD_LOADING;
+
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+               final ResultState resultState =  onLoad();
+                //运行在主线程
+                UIUtils.runOnUIThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(resultState!=null){
+                            mCurrentState = resultState.getState();//加载结束后更新网络状态
+                        }
+                        //根据最新状态刷新页面
+                        showRightPage();
+                    }
+                });
+
+            }
+        }.start();
+        }
+    }
+    //加载成功的布局,必须有调用者来实现
+    public abstract View onCreateSuccessView();
+    //加载网络，返回结束时状态
+    public abstract  ResultState onLoad();
+
+    public enum ResultState{
+        STATE_SUCCESS(STATE_LOAD_SUCCESS),
+        STATE_EMPTY(STATE_LOAD_EMPTY),
+        STATE_ERROR(STATE_LOAD_ERROR);
+        private int state;
+        private ResultState(int state){
+            this.state = state;
+        }
+        public int getState(){
+            return state;
+        }
     }
 }

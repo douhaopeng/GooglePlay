@@ -27,6 +27,24 @@ public class MainActivity extends BaseActivity{
         MyAdapter mAdapter = new MyAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mAdapter);
         mPagerTab.setViewPager(mViewPager);//将指针和viewpager绑定一起
+        mPagerTab.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+               BaseFragment fragment = FragmentFactory.createFragment(position);
+                //开始加载数据
+                fragment.loadData();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
     class MyAdapter extends FragmentPagerAdapter{
 
@@ -34,7 +52,7 @@ public class MainActivity extends BaseActivity{
             super(fm);
             mTabNames =  UIUtils.getStringArray(R.array.tab_names);//加载页面标题的数组
         }
-//返回标题内容
+        //返回标题内容
         @Override
         public CharSequence getPageTitle(int position) {
             return mTabNames[position];
@@ -46,7 +64,7 @@ public class MainActivity extends BaseActivity{
            BaseFragment fragment = FragmentFactory.createFragment(position);
             return fragment;
         }
-//fragemnt数量
+        //fragemnt数量
         @Override
         public int getCount() {
             return mTabNames.length;
