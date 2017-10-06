@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.widget.BaseAdapter;
 
 import com.example.douhaopeng.googleplay.R;
+import com.example.douhaopeng.googleplay.com.example.douhaopeng.ui.fragment.BaseFragment;
+import com.example.douhaopeng.googleplay.com.example.douhaopeng.ui.fragment.FragmentFactory;
 import com.example.douhaopeng.googleplay.com.example.douhaopeng.ui.view.PagerTab;
 import com.example.douhaopeng.googleplay.com.example.douhaopeng.utils.UIUtils;
 
@@ -35,14 +37,14 @@ public class MainActivity extends BaseActivity{
 //返回标题内容
         @Override
         public CharSequence getPageTitle(int position) {
-            return super.getPageTitle(position);
+            return mTabNames[position];
         }
 
         //返回当前位置fragment对象
         @Override
         public Fragment getItem(int position) {
-
-            return null;
+           BaseFragment fragment = FragmentFactory.createFragment(position);
+            return fragment;
         }
 //fragemnt数量
         @Override
