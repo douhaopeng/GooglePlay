@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.douhaopeng.googleplay.com.example.douhaopeng.ui.view.LoadingPage;
 import com.example.douhaopeng.googleplay.com.example.douhaopeng.utils.UIUtils;
 
 /**
@@ -15,12 +16,14 @@ import com.example.douhaopeng.googleplay.com.example.douhaopeng.utils.UIUtils;
  */
 
 public class BaseFragment extends Fragment {
+    private  LoadingPage mLoadingPage;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //textView显示当前类名
-        TextView view = new TextView(UIUtils.getContext());
-        view.setText(getClass().getSimpleName());
-        return view;
+//        TextView view = new TextView(UIUtils.getContext());
+//        view.setText(getClass().getSimpleName());
+         mLoadingPage = new LoadingPage(UIUtils.getContext());
+        return mLoadingPage;
     }
 }
