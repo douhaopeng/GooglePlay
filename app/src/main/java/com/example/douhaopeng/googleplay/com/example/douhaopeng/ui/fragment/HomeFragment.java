@@ -1,5 +1,6 @@
 package com.example.douhaopeng.googleplay.com.example.douhaopeng.ui.fragment;
 
+import android.os.SystemClock;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -52,8 +53,18 @@ public class HomeFragment extends BaseFragment {
         }
 
         @Override
+        public ArrayList<String> onLoadMore() {
+            ArrayList<String> moreData = new ArrayList<>();
+            for (int i=0;i<20;i++){
+                moreData.add("ncjasc"+i);
+            }
+            SystemClock.sleep(2000);
+            return moreData;
+        }
+
+        @Override
         public boolean hasMore() {
-            return false;
+            return true;
         }
 
         //

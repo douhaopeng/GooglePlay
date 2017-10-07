@@ -27,6 +27,8 @@
         android:text="加载中....."/>
     </LinearLayout>
     <TextView
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:id="@+id/tv_load_error"
         android:textColor="#000"
         android:textSize="22sp"

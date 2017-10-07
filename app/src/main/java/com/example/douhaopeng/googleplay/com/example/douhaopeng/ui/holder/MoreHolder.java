@@ -18,9 +18,9 @@ public class MoreHolder extends BaseHolder<Integer> {
     //1.可以加载更多
     //2.加载更多失败
     //3.没有更多数据
-    private static final int STATE_MORE_MORE=1;
-    private static final int STATE_MORE_ERROE=2;
-    private static final int STATE_MORE_NONE=3;
+    public static final int STATE_MORE_MORE=1;
+    public static final int STATE_MORE_ERROE=2;
+    public static final int STATE_MORE_NONE=3;
 
     public MoreHolder(boolean hasMore) {
         //如果有更多数据状态为STATE_MORE_MORE,将此状态传递给父类，父类同时刷新界面

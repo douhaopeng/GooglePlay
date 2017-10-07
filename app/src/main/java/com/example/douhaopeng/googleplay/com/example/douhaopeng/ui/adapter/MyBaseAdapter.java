@@ -4,9 +4,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Toast;
 
 import com.example.douhaopeng.googleplay.com.example.douhaopeng.ui.holder.BaseHolder;
 import com.example.douhaopeng.googleplay.com.example.douhaopeng.ui.holder.MoreHolder;
+import com.example.douhaopeng.googleplay.com.example.douhaopeng.utils.UIUtils;
 
 import java.util.ArrayList;
 
@@ -15,6 +17,7 @@ import java.util.ArrayList;
  */
 
 public abstract class MyBaseAdapter<T> extends BaseAdapter {
+    private boolean isLoadMore=false;
     private static final int TYPE_NORMAL = 0;//正常类型
     private static final int TYPE_MORE = 1;//更多类型
     private ArrayList<T> data;
@@ -58,6 +61,12 @@ public abstract class MyBaseAdapter<T> extends BaseAdapter {
         }
         else{
             //加载更多布局
+            //一旦加载更多布局就开始加载更多
+            //只有在更多数据的状态下才加载更多
+            MoreHolder moreHolder = (MoreHolder) holder;
+            if(moreHolder.getData() == MoreHolder.STATE_MORE_MORE){
+                LoadMore(moreHolder);
+            }
         }
         return holder.getRootView();
     }
@@ -87,4 +96,40 @@ public abstract class MyBaseAdapter<T> extends BaseAdapter {
 
     //返回当前页面holder对象，必须子类实现
     public abstract BaseHolder<T> getHolder();
+
+    public void LoadMore(final MoreHolder holder){
+        if(!isLoadMore){
+            isLoadMore = true;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    final ArrayList<T> moreData = onLoadMore();
+                    UIUtils.runOnUIThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(moreData!=null){
+                                if(moreData.size()<20){
+                                    holder.setData(MoreHolder.STATE_MORE_NONE);
+                                    Toast.makeText(UIUtils.getContext(),"没有更多数据了",Toast.LENGTH_SHORT).show();
+                                }else{
+                                    holder.setData(MoreHolder.STATE_MORE_MORE);
+                                }
+                                //将更多数据追加到当前集合中
+                                data.addAll(moreData);
+                                //刷新界面
+                                MyBaseAdapter.this.notifyDataSetChanged();
+                            }else{
+                                holder.setData(MoreHolder.STATE_MORE_ERROE);
+                            }
+                            isLoadMore = false;
+                        }
+                    });
+
+                }
+            }).start();
+        }
+
+    }
+
+    public abstract ArrayList<T> onLoadMore();
 }
