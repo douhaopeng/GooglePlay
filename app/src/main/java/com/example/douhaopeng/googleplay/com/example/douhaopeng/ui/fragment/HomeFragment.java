@@ -9,6 +9,8 @@ import android.widget.TextView;
 import com.example.douhaopeng.googleplay.R;
 import com.example.douhaopeng.googleplay.com.example.douhaopeng.ui.activity.BaseActivity;
 import com.example.douhaopeng.googleplay.com.example.douhaopeng.ui.adapter.MyBaseAdapter;
+import com.example.douhaopeng.googleplay.com.example.douhaopeng.ui.holder.BaseHolder;
+import com.example.douhaopeng.googleplay.com.example.douhaopeng.ui.holder.HomeHolder;
 import com.example.douhaopeng.googleplay.com.example.douhaopeng.ui.view.LoadingPage;
 import com.example.douhaopeng.googleplay.com.example.douhaopeng.utils.UIUtils;
 
@@ -44,22 +46,26 @@ public class HomeFragment extends BaseFragment {
         public HomeAdapter(ArrayList<String> data) {
             super(data);
         }
-
         @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-            ViewHolder holder;
-            if(view==null){
-                view = UIUtils.inflate(R.layout.list_item_home);
-                holder = new ViewHolder();
-                holder.tvContent = view.findViewById(R.id.tv_content);
-                view.setTag(holder);
-            }else{
-               holder = (ViewHolder) view.getTag();
-            }
-            String content =getItem(i);
-            holder.tvContent.setText(content);
-            return view;
+        public BaseHolder<String> getHolder() {
+            return new HomeHolder();
         }
+//
+//        @Override
+//        public View getView(int i, View view, ViewGroup viewGroup) {
+//            ViewHolder holder;
+//            if(view==null){
+//                view = UIUtils.inflate(R.layout.list_item_home);
+//                holder = new ViewHolder();
+//                holder.tvContent = view.findViewById(R.id.tv_content);
+//                view.setTag(holder);
+//            }else{
+//               holder = (ViewHolder) view.getTag();
+//            }
+//            String content =getItem(i);
+//            holder.tvContent.setText(content);
+//            return view;
+//        }
     }
     static class ViewHolder{
         public TextView tvContent;
