@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.douhaopeng.googleplay.R;
 import com.example.douhaopeng.googleplay.com.example.douhaopeng.ui.activity.BaseActivity;
+import com.example.douhaopeng.googleplay.com.example.douhaopeng.ui.adapter.MyBaseAdapter;
 import com.example.douhaopeng.googleplay.com.example.douhaopeng.ui.view.LoadingPage;
 import com.example.douhaopeng.googleplay.com.example.douhaopeng.utils.UIUtils;
 
@@ -25,7 +26,7 @@ public class HomeFragment extends BaseFragment {
 //        TextView view = new TextView(UIUtils.getContext());
 //        view.setText(getClass().getSimpleName());
         ListView view =new ListView(UIUtils.getContext());
-        view.setAdapter(new HomeAdapter());
+        view.setAdapter(new HomeAdapter(data));
         return view;
     }
     //已经运行在子线程，可以直接执行耗时操作
@@ -38,21 +39,10 @@ public class HomeFragment extends BaseFragment {
         }
         return LoadingPage.ResultState.STATE_SUCCESS;
     }
-    class HomeAdapter extends BaseAdapter{
+    class HomeAdapter extends MyBaseAdapter<String>{
 
-        @Override
-        public int getCount() {
-            return data.size();
-        }
-
-        @Override
-        public String getItem(int i) {
-            return data.get(i);
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return i;
+        public HomeAdapter(ArrayList<String> data) {
+            super(data);
         }
 
         @Override
