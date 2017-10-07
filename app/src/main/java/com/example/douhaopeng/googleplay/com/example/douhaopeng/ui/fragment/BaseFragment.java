@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.example.douhaopeng.googleplay.com.example.douhaopeng.ui.view.LoadingPage;
 import com.example.douhaopeng.googleplay.com.example.douhaopeng.utils.UIUtils;
 
+import java.util.ArrayList;
+
 /**
  * Created by Administrator on 2017\10\6 0006.
  */
@@ -41,6 +43,20 @@ public abstract class BaseFragment extends Fragment {
     public abstract View onCreateSuccessView();
     //加载网络数据必须由子类实现
     public abstract LoadingPage.ResultState onLoad();
+    //对网络返回数据的合法性进行校验
+    public LoadingPage.ResultState check(Object obj){
+        if(obj!=null){
+            if(obj instanceof ArrayList){
+                ArrayList list = (ArrayList) obj;
+                if(list.isEmpty()){
+                    return LoadingPage.ResultState.STATE_EMPTY;
+                }else{
+                    return LoadingPage.ResultState.STATE_SUCCESS;
+                }
+            }
+        }
+        return LoadingPage.ResultState.STATE_ERROR;
+    }
     //开始加载数据
     public void loadData(){
         if(mLoadingPage!=null){

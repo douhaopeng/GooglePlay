@@ -25,7 +25,7 @@ import org.apache.http.protocol.SyncBasicHttpContext;
 
 public class HttpHelper {
 
-	public static final String URL = "http://127.0.0.1:8090/";
+	public static final String URL = "http://192.168.56.1:8090/";
 
 	/** get请求，获取返回字符串内容 */
 	public static HttpResult get(String url) {

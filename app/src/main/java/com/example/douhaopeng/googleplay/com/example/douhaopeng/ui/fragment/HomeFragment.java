@@ -8,6 +8,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.douhaopeng.googleplay.R;
+import com.example.douhaopeng.googleplay.com.example.douhaopeng.domain.AppInfo;
+import com.example.douhaopeng.googleplay.com.example.douhaopeng.http.protocol.HomeProtocol;
 import com.example.douhaopeng.googleplay.com.example.douhaopeng.ui.activity.BaseActivity;
 import com.example.douhaopeng.googleplay.com.example.douhaopeng.ui.adapter.MyBaseAdapter;
 import com.example.douhaopeng.googleplay.com.example.douhaopeng.ui.holder.BaseHolder;
@@ -16,18 +18,19 @@ import com.example.douhaopeng.googleplay.com.example.douhaopeng.ui.view.LoadingP
 import com.example.douhaopeng.googleplay.com.example.douhaopeng.utils.UIUtils;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Created by Administrator on 2017\10\6 0006.
  */
 
 public class HomeFragment extends BaseFragment {
-    private ArrayList<String> data;
+    private  ArrayList<AppInfo> data;
+    //private ArrayList<String> data;
     //如果加载数据成功就回调此方法，运行在主线程
     @Override
     public View onCreateSuccessView() {
-//        TextView view = new TextView(UIUtils.getContext());
-//        view.setText(getClass().getSimpleName());
+
         ListView view =new ListView(UIUtils.getContext());
         view.setAdapter(new HomeAdapter(data));
         return view;
@@ -36,30 +39,30 @@ public class HomeFragment extends BaseFragment {
     @Override
     public LoadingPage.ResultState onLoad() {
         //请求网络
-        data = new ArrayList<String>();
-        for (int i=0;i<20;i++){
-            data.add("测试数据"+i);
-        }
-        return LoadingPage.ResultState.STATE_SUCCESS;
+        HomeProtocol protocol = new HomeProtocol();
+        data = protocol.getData(0);//加载第一页
+        return check(data);//校验数据
     }
-    class HomeAdapter extends MyBaseAdapter<String>{
 
-        public HomeAdapter(ArrayList<String> data){
+    class HomeAdapter extends MyBaseAdapter<AppInfo>{
+
+        public HomeAdapter(ArrayList<AppInfo> data){
             super(data);
         }
         @Override
-        public BaseHolder<String> getHolder(){
+        public BaseHolder<AppInfo> getHolder(){
             return new HomeHolder();
         }
 
         @Override
-        public ArrayList<String> onLoadMore() {
-            ArrayList<String> moreData = new ArrayList<>();
-            for (int i=0;i<20;i++){
-                moreData.add("ncjasc"+i);
-            }
-            SystemClock.sleep(2000);
-            return moreData;
+        public ArrayList<AppInfo> onLoadMore() {
+//            ArrayList<String> moreData = new ArrayList<>();
+//            for (int i=0;i<20;i++){
+//                moreData.add("ncjasc"+i);
+//            }
+//            SystemClock.sleep(2000);
+//            return moreData;
+            return null;
         }
 
         @Override
