@@ -43,14 +43,20 @@ public class HomeFragment extends BaseFragment {
     }
     class HomeAdapter extends MyBaseAdapter<String>{
 
-        public HomeAdapter(ArrayList<String> data) {
+        public HomeAdapter(ArrayList<String> data){
             super(data);
         }
         @Override
-        public BaseHolder<String> getHolder() {
+        public BaseHolder<String> getHolder(){
             return new HomeHolder();
         }
-//
+
+        @Override
+        public boolean hasMore() {
+            return false;
+        }
+
+        //
 //        @Override
 //        public View getView(int i, View view, ViewGroup viewGroup) {
 //            ViewHolder holder;

@@ -6,7 +6,7 @@ import android.view.View;
  * Created by Administrator on 2017\10\7 0007.
  */
 
-public abstract class BaseHolder<T> {
+public abstract class BaseHolder<T>{
     private View mRootView;
     private T data;
     public BaseHolder(){
@@ -27,10 +27,12 @@ public abstract class BaseHolder<T> {
         refreshView(data);
     }
     //获取数据
-    public T getData() {
+    public T getData(){
         return data;
     }
 
     //4.根据数据刷新界面
     public abstract void refreshView(T data);
 }
+
+
