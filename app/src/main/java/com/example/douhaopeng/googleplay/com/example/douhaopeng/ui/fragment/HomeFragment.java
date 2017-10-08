@@ -62,6 +62,8 @@ public class HomeFragment extends BaseFragment {
 //            }
 //            SystemClock.sleep(2000);
 //            return moreData;
+            HomeProtocol protocol = new HomeProtocol();
+            ArrayList<AppInfo> moreData =protocol.getData(getListSize());
             return null;
         }
 

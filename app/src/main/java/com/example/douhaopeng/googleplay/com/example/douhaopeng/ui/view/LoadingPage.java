@@ -88,7 +88,7 @@ public abstract class LoadingPage extends FrameLayout {
 
         new Thread(){
             @Override
-            public void run() {
+            public void run(){
                 super.run();
                final ResultState resultState =  onLoad();
                 //运行在主线程

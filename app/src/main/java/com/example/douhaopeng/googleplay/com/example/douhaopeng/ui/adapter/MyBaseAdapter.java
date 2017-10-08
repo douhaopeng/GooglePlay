@@ -132,4 +132,7 @@ public abstract class MyBaseAdapter<T> extends BaseAdapter {
     }
 
     public abstract ArrayList<T> onLoadMore();
+    public  int getListSize(){
+        return data.size();
+    }
 }
