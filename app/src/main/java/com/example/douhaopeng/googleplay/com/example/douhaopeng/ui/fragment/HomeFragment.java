@@ -1,5 +1,7 @@
 package com.example.douhaopeng.googleplay.com.example.douhaopeng.ui.fragment;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.SystemClock;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import com.example.douhaopeng.googleplay.com.example.douhaopeng.ui.adapter.MyBas
 import com.example.douhaopeng.googleplay.com.example.douhaopeng.ui.holder.BaseHolder;
 import com.example.douhaopeng.googleplay.com.example.douhaopeng.ui.holder.HomeHolder;
 import com.example.douhaopeng.googleplay.com.example.douhaopeng.ui.view.LoadingPage;
+import com.example.douhaopeng.googleplay.com.example.douhaopeng.ui.view.MyListView;
 import com.example.douhaopeng.googleplay.com.example.douhaopeng.utils.UIUtils;
 
 import java.util.ArrayList;
@@ -31,7 +34,7 @@ public class HomeFragment extends BaseFragment {
     @Override
     public View onCreateSuccessView() {
 
-        ListView view =new ListView(UIUtils.getContext());
+        MyListView view =new MyListView(UIUtils.getContext());
         view.setAdapter(new HomeAdapter(data));
         return view;
     }
