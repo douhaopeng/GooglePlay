@@ -56,7 +56,7 @@ public class HotFragment extends BaseFragment {
             StateListDrawable selector =  DrawableUtils.getSelector(Color.rgb(r,g,b),color,UIUtils.dip2px(6));
             view.setBackgroundDrawable(selector);
             flow.addView(view);
-            view.setOnClickListener(new View.OnClickListener() {
+            view.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(UIUtils.getContext(),keyWord,Toast.LENGTH_SHORT).show();
@@ -68,7 +68,7 @@ public class HotFragment extends BaseFragment {
     }
 
     @Override
-    public LoadingPage.ResultState onLoad() {
+    public LoadingPage.ResultState onLoad(){
         HotProtocol protocol = new HotProtocol();
          data = protocol.getData(0);
         return check(data);

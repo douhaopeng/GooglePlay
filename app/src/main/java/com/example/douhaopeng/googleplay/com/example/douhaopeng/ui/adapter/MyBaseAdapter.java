@@ -78,7 +78,7 @@ public abstract class MyBaseAdapter<T> extends BaseAdapter {
     //返回布局类型的个数
     @Override
     public int getViewTypeCount(){
-        return 2;//返回普通布局，和加载更多布局
+        return 3;//返回普通布局，和加载更多布局
     }
     //返回当前位置应该展示的布局类型
     @Override
